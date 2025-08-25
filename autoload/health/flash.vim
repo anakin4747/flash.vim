@@ -23,7 +23,7 @@ function! health#flash#check()
     if !exists("g:flash_decks") || empty(g:flash_decks)
         call s:error("no decks configured")
     else
-        call s:ok("found decks")
+        call s:ok($'found decks:\n\t{join(flash#decks#get(), '\n\t')}')
     endi
 
     call s:start("unit tests")
