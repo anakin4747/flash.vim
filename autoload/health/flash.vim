@@ -12,7 +12,9 @@ function! s:error(msg)
 endf
 
 function! health#flash#check()
-    call s:start("yeah")
-    call s:ok("wow")
-    call s:error("noo")
+    if !executable("git")
+        call s:error("git not installed")
+    else
+        call s:ok("found git")
+    endif
 endf
