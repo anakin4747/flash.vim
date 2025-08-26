@@ -37,7 +37,8 @@ function! s:completeDecks(ArgLead, CmdLine, CursorPos)
     return flash#decks#get()
 endf
 
-command! -nargs=? -complete=customlist,s:completeDecks Flash call flash#main#menu()
+command! -nargs=? -complete=customlist,s:completeDecks Flash
+    \ call flash#main#menu("<args>")
 
 " }}}
 
