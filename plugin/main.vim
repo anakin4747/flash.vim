@@ -1,7 +1,6 @@
 " flash.vim - vim flash cards for learning French
 "
 " Author:    Anakin Childerhose
-" Copyright: Vim license applies, see ":help license"
 " Version:   0.1
 
 " The main menu should first display a list of decks to choose from
