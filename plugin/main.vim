@@ -30,6 +30,8 @@
 " and be able to operate the same without internet (only not able to push or
 " pull)
 
+" Autogenerate help page
+execute $'helptags {expand('<sfile>:p:h')}/../doc'
 
 " Commands {{{
 
