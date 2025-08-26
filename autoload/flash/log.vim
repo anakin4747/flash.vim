@@ -59,9 +59,3 @@ function! flash#log#usage()
     "call flash#log#good(" then:")
     "call flash#log#good("   :D[bg]")
 endf
-
-"function! flash#log#filetypeUsage()
-"    call flash#log#warning("no &filetype set")
-"    call flash#log#info("make sure the &filetype option is properly set to the filetype you wish to debug")
-"    call flash#log#good("To read the filetype option try: ':set filetype?' or ':echo &filetype'")
-"endf
