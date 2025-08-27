@@ -35,8 +35,8 @@ execute $'helptags {expand('<sfile>:p:h')}/../doc'
 
 " Commands {{{
 
-function! s:completeDecks(ArgLead, CmdLine, CursorPos)
-    return flash#decks#get()
+function! s:completeDecks(ArgLead, CmdLine, CursorPos) abort
+    return uniq(sort(flash#decks#get() + flash#decks#getlocal()))
 endf
 
 command! -nargs=? -complete=customlist,s:completeDecks Flash

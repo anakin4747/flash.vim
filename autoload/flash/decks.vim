@@ -1,6 +1,11 @@
-
 function! flash#decks#get(decks = get(g:, 'flash_decks'))
     return a:decks
+endf
+
+function! flash#decks#getlocal()
+    return glob($'{stdpath("data")}/flash.vim/*/*')
+        \ ->substitute($'{stdpath("data")}/flash.vim/', '', 'g')
+        \ ->split()
 endf
 
 function! flash#decks#path(deck)
