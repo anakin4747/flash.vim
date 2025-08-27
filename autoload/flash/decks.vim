@@ -59,3 +59,21 @@ function! flash#decks#existsRemotely(deck)
 
     return v:false
 endf
+
+function! flash#decks#create(deck)
+    try
+        let path = flash#decks#path(a:deck)
+        call mkdir(path, "p")
+    catch
+        call flash#log#warning($"failed to create {path} for {a:deck}")
+        throw "exit"
+    endt
+
+    let git_init_cmd = $'git -C {path} init -b main'
+    let res = system(git_init_cmd)
+    if v:shell_error
+        call flash#log#warning($"failed to run '{git_init_cmd}'")
+        call flash#log#warning($"result: '{res}'")
+        throw "exit"
+    endi
+endf
