@@ -36,6 +36,5 @@ function! health#flash#check()
     else
         call s:ok("authenticated with gh")
     endi
-
-    call s:start("unit tests")
 endf
+
