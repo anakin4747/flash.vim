@@ -76,4 +76,6 @@ function! flash#decks#create(deck)
         call flash#log#warning($"result: '{res}'")
         throw "exit"
     endi
+
+    call flash#log#good($"created {path} for {a:deck}")
 endf
