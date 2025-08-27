@@ -38,7 +38,7 @@ function! flash#decks#existsLocally(deck)
         return v:false
     endi
 
-    if filereadable(flash#decks#path(a:deck))
+    if isdirectory(flash#decks#path(a:deck))
         return v:true
     endi
 
