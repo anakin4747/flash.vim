@@ -11,6 +11,17 @@ function! flash#main#menu(deck) abort
         let deck = flash#decks#select()
     else
         let deck = a:deck
+        if deck == "clean"
+            try
+                " TODO: confirm with user first
+                " TODO: report what was deleted
+                call flash#log#info($"deleting all local decks and their contents")
+                call delete($"{stdpath('data')}/flash.vim", "rf")
+            catch
+                call flash#log#warning($"failed to delete '{stdpath('data')}/flash.vim'")
+            endt
+            return
+        endif
     endi
 
     try
