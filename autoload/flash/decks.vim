@@ -93,6 +93,13 @@ function! flash#decks#create(deck)
     endi
 
     call flash#log#good($"created {path} for {a:deck}")
+
+    try
+        call json_encode([])->split()->writefile($"{path}/cards.json")
+    catch
+        call flash#log#warning($"failed to create '{path}/cards.json'")
+        throw "exit"
+    endt
 endf
 
 function! flash#decks#clone(deck)
