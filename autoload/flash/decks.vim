@@ -94,3 +94,13 @@ function! flash#decks#create(deck)
 
     call flash#log#good($"created {path} for {a:deck}")
 endf
+
+function! flash#decks#clone(deck)
+    call flash#log#warning("clone not yet implemented")
+    throw "exit"
+endf
+
+function! flash#decks#pull(deck)
+    call flash#log#warning("pull not yet implemented")
+    throw "exit"
+endf
