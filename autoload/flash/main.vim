@@ -1,5 +1,12 @@
 
 function! flash#main#menu(deck) abort
+    if empty(flash#decks#get()) && empty(a:deck)
+        call flash#log#warning("no decks configured or found locally")
+        call flash#log#info("create a deck with `:Flash name-of/new-deck` or configure decks in g:flash_decks")
+        call flash#log#info("exiting")
+        return
+    endi
+
     if empty(a:deck)
         let deck = flash#decks#select()
     else
