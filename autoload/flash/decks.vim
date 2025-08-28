@@ -60,6 +60,10 @@ function! flash#decks#existsRemotely(deck)
     return v:false
 endf
 
+function! flash#decks#valid(deck)
+    return type(a:deck) == v:t_string && a:deck =~ '^[^/]\+/[^/]\+$'
+endf
+
 function! flash#decks#create(deck)
     try
         let path = flash#decks#path(a:deck)

@@ -36,5 +36,26 @@ function! health#flash#check()
     else
         call s:ok("authenticated with gh")
     endi
+
+    call s:start("unit tests")
+    call s:test_valid_deck()
 endf
 
+function! s:test_valid_deck()
+
+    if !flash#decks#valid("good/deck")
+        call s:error("good/deck failed validation")
+    endi
+
+    if flash#decks#valid("bad/deck/spec")
+        call s:error("bad/deck/spec passed validation")
+    endi
+
+    if flash#decks#valid("/bad/deck/")
+        call s:error("/bad/deck/ passed validation")
+    endi
+
+    if flash#decks#valid("bad")
+        call s:error("'bad' failed validation")
+    endi
+endf
