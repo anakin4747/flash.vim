@@ -73,7 +73,7 @@ function! flash#decks#create(deck)
 
     let path = flash#decks#path(a:deck)
     call flash#log#info($"hit enter to create the deck '{a:deck}' locally: ")
-    if nr2char(getchar()) != "\r"
+    if !flash#util#enter_hit()
         throw "exit"
     endi
 
@@ -104,7 +104,7 @@ endf
 
 function! flash#decks#createRemote(deck)
     call flash#log#info($"hit enter to create the deck '{a:deck}' remotely: ")
-    if nr2char(getchar()) != "\r"
+    if !flash#util#enter_hit()
         throw "exit"
     endi
 

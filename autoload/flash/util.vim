@@ -10,3 +10,7 @@ function! flash#util#ping()
 
     return v:true
 endf
+
+function! flash#util#enter_hit()
+    return nr2char(getchar()) == "\r"
+endf
