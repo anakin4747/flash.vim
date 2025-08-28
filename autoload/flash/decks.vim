@@ -102,6 +102,22 @@ function! flash#decks#create(deck)
     endt
 endf
 
+function! flash#decks#createRemote(deck)
+    call flash#log#info($"hit enter to create the deck '{a:deck}' remotely: ")
+    if nr2char(getchar()) != "\r"
+        throw "exit"
+    endi
+
+    let gh_repo_create_cmd = $"gh repo create {a:deck} --confirm {g:gh_repo_create_args}"
+
+    let res = system(gh_repo_create_cmd)
+    if v:shell_error
+        call flash#log#warning($"failed to run '{gh_repo_create_cmd}'")
+        call flash#log#warning($"result: '{res}'")
+        throw "exit"
+    endi
+endf
+
 function! flash#decks#clone(deck)
     call flash#log#warning("clone not yet implemented")
     throw "exit"

@@ -33,6 +33,12 @@
 " Autogenerate help page
 execute $'helptags {expand('<sfile>:p:h')}/../doc'
 
+" Global variables {{{
+
+let g:gh_repo_create_args = "--public"
+
+" }}}
+
 " Commands {{{
 
 function! s:completeDecks(ArgLead, CmdLine, CursorPos) abort
