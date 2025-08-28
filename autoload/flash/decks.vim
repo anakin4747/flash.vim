@@ -65,8 +65,19 @@ function! flash#decks#valid(deck)
 endf
 
 function! flash#decks#create(deck)
+
+    if !flash#decks#valid(a:deck)
+        call flash#log#warning($"invalid deck name '{a:deck}'")
+        throw "exit"
+    endi
+
+    let path = flash#decks#path(a:deck)
+    call flash#log#info($"hit enter to create the deck '{a:deck}' locally: ")
+    if nr2char(getchar()) != "\r"
+        throw "exit"
+    endi
+
     try
-        let path = flash#decks#path(a:deck)
         call mkdir(path, "p")
     catch
         call flash#log#warning($"failed to create {path} for {a:deck}")
