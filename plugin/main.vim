@@ -42,7 +42,16 @@ let g:gh_repo_create_args = "--public"
 " Commands {{{
 
 function! s:completeDecks(ArgLead, CmdLine, CursorPos) abort
-    return uniq(sort(flash#decks#get() + flash#decks#getlocal()))
+    " Split the command line into arguments
+    let l:args = split(a:CmdLine)
+    " If completing the first argument (no args yet or cursor is in first arg)
+    if len(l:args) <= 1 || a:CursorPos <= strlen(l:args[0])
+        return uniq(sort(flash#decks#get() + flash#decks#getlocal()))
+    " If completing the second argument
+    elseif len(l:args) == 2 || a:CursorPos > strlen(l:args[0])
+        return ["clean", "add"]
+    endi
+    return []
 endf
 
 command! -nargs=? -complete=customlist,s:completeDecks Flash
