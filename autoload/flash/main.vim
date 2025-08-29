@@ -1,27 +1,28 @@
 
-function! flash#main#menu(deck) abort
-    if empty(flash#decks#get()) && empty(a:deck)
+function! flash#main#menu(args) abort
+    let args = split(a:args)
+    let deck = get(args, 0, "")
+    let cmd = get(args, 1, "")
+
+    if a:args == "clean"
+        try
+            call flash#log#info($"deleting all local decks and their contents")
+            call delete($"{stdpath('data')}/flash.vim", "rf")
+        catch
+            call flash#log#warning($"failed to delete '{stdpath('data')}/flash.vim'")
+        endt
+        return
+    endi
+
+    if empty(flash#decks#get()) && empty(deck)
         call flash#log#warning("no decks configured or found locally")
         call flash#log#info("create a deck with `:Flash name-of/new-deck` or configure decks in g:flash_decks")
         call flash#log#info("exiting")
         return
     endi
 
-    if empty(a:deck)
+    if empty(deck)
         let deck = flash#decks#select()
-    else
-        let deck = a:deck
-        if deck == "clean"
-            try
-                " TODO: confirm with user first
-                " TODO: report what was deleted
-                call flash#log#info($"deleting all local decks and their contents")
-                call delete($"{stdpath('data')}/flash.vim", "rf")
-            catch
-                call flash#log#warning($"failed to delete '{stdpath('data')}/flash.vim'")
-            endt
-            return
-        endi
     endi
 
     try
@@ -46,9 +47,20 @@ function! flash#main#menu(deck) abort
             " them where to find it on the system
         endi
 
-        call flash#log#good("start deck")
+        if cmd == "add"
+            call flash#log#good("adding cards to deck")
+            let path = flash#decks#path(deck)
+            let cards = flash#cards#get(path)
+            call flash#cards#create(cards, path)
+            throw "exit"
 
-        call flash#decks#start(deck)
+        elseif cmd == "clean"
+            call flash#log#warning("deck specific cleans are not yet implemented")
+            throw "exit"
+        else
+            call flash#log#good("start deck")
+            call flash#decks#start(deck)
+        endif
 
     catch "exit"
         call flash#log#info("exiting")
