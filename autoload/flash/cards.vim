@@ -53,3 +53,18 @@ function! s:new_card()
 
     return card
 endf
+
+function! flash#cards#get(path)
+    try
+        let cards = readfile($"{a:path}/cards.json")->json_decode()
+        if type(cards) != v:t_list
+            call flash#log#warning($"'{a:path}/cards.json' did not return a list")
+            throw "exit"
+        endi
+    catch
+        call flash#log#warning($"failed to read '{a:path}/cards.json'")
+        throw "exit"
+    endt
+
+    return cards
+endf

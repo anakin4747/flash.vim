@@ -122,16 +122,7 @@ function! flash#decks#start(deck)
 
     let path = flash#decks#path(a:deck)
 
-    try
-        let cards = readfile($"{path}/cards.json")->json_decode()
-        if type(cards) != v:t_list
-            call flash#log#warning($"'{path}/cards.json' did not return a list")
-            throw "exit"
-        endi
-    catch
-        call flash#log#warning($"failed to read '{path}/cards.json'")
-        throw "exit"
-    endt
+    let cards = flash#cards#get(path)
 
     if empty(cards)
         call flash#log#info("deck is empty")
