@@ -3,7 +3,7 @@ let s:repo = "flash.vim"
 
 if !exists('s:hould_log')
     let s:hould_log = v:false
-endif
+endi
 
 function! flash#log#toggle()
     let s:hould_log = !s:hould_log
@@ -18,7 +18,7 @@ endf
 function! flash#log#debug(msg)
     if !s:hould_log
         return
-    endif
+    endi
 
     echohl QuickFixLine
     echom $"{s:repo}: debug: {flash#log#callingFunc()}: {a:msg}"

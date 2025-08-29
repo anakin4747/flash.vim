@@ -21,7 +21,7 @@ function! flash#main#menu(deck) abort
                 call flash#log#warning($"failed to delete '{stdpath('data')}/flash.vim'")
             endt
             return
-        endif
+        endi
     endi
 
     try
