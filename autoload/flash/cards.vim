@@ -68,3 +68,28 @@ function! flash#cards#get(path)
 
     return cards
 endf
+
+function! s:shuffle(cards)
+    for i in range(len(a:cards) - 1, 1, -1)
+        let j = rand() % (i + 1)
+        let temp = a:cards[i]
+        let a:cards[i] = a:cards[j]
+        let a:cards[j] = temp
+    endfo
+    return a:cards
+endf
+
+function! flash#cards#loop(cards)
+
+    let cards = s:shuffle(a:cards)
+
+    for card in cards
+        call flash#log#good(card['question'])
+        let answer = input('')
+        if index(card['answers'], answer) != -1
+            call flash#log#good('correct')
+        else
+            call flash#log#warning('incorrect')
+        endi
+    endfo
+endf

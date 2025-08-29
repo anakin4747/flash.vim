@@ -135,6 +135,8 @@ function! flash#decks#start(deck)
     " random
     "
     " once a card is used it should NOT be removed from the deck
+
+    call flash#cards#loop(cards)
 endf
 
 function! flash#decks#clone(deck)
