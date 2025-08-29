@@ -44,12 +44,15 @@ function! flash#main#menu(deck) abort
             " pull it but if pulling fails let user manage the git repo by telling
             " them where to find it on the system
         endi
+
+        call flash#log#good("start deck")
+
+        call flash#decks#start(deck)
+
     catch "exit"
         call flash#log#info("exiting")
         return
     endt
-
-    call flash#log#good("start deck")
 
     " when to push? after making additions to deck
     "

@@ -118,6 +118,34 @@ function! flash#decks#createRemote(deck)
     endi
 endf
 
+function! flash#decks#start(deck)
+
+    let path = flash#decks#path(a:deck)
+
+    try
+        let cards = readfile($"{path}/cards.json")->json_decode()
+        if type(cards) != v:t_list
+            call flash#log#warning($"'{path}/cards.json' did not return a list")
+            throw "exit"
+        endi
+    catch
+        call flash#log#warning($"failed to read '{path}/cards.json'")
+        throw "exit"
+    endt
+
+    if empty(cards)
+        call flash#log#info("deck is empty")
+
+        let cards = flash#cards#create([], path)
+    endi
+
+    " loop through questions in cards
+    " first implementation will not have weights to the cards they will just be
+    " random
+    "
+    " once a card is used it should NOT be removed from the deck
+endf
+
 function! flash#decks#clone(deck)
     call flash#log#warning("clone not yet implemented")
     throw "exit"
