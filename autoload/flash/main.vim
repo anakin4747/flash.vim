@@ -40,6 +40,7 @@ function! flash#main#menu(deck) abort
         elseif flash#decks#existsLocally(deck) && flash#decks#existsRemotely(deck)
             call flash#log#info($"{flash#decks#path(deck)} exists locally")
             call flash#log#info($"{flash#decks#url(deck)} exists remotely")
+            " confirm before pulling
             call flash#decks#pull(deck)
             " pull it but if pulling fails let user manage the git repo by telling
             " them where to find it on the system
